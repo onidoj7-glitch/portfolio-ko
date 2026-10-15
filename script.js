@@ -59,10 +59,10 @@ navLinks.forEach((link) => {
 });
 
 // Replace this with your real email address before publishing.
-const portfolioEmail = "onidoJ7@gmail.com.com";
+const portfolioEmail = "onidoJ7@gmail.com";
 const emailLink = document.getElementById("emailLink");
 
-if (emailLink && portfolioEmail !== "onidoJ7@gmail.com.com") {
+if (emailLink && portfolioEmail !== "onidoJ7@gmail.com") {
     emailLink.href = `mailto:${portfolioEmail}`;
     emailLink.textContent = portfolioEmail;
 }
@@ -101,4 +101,23 @@ if (projectModalElement && typeof bootstrap !== "undefined") {
             projectModal.show();
         });
     });
+}
+
+
+// Fill the skill bars once, when the skills panel scrolls into view.
+const skillPanel = document.getElementById("skillPanel");
+
+if (skillPanel && "IntersectionObserver" in window) {
+    skillPanel.classList.add("skills-animate");
+
+    const skillObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.25 });
+
+    skillObserver.observe(skillPanel);
 }
